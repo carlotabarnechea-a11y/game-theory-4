@@ -20,7 +20,7 @@ function render(s){
  txt('title',s.stage==='lobby'?'Ready to start':s.stage==='finished'?'All 12 rounds complete':`Round ${s.round} / 12`);
  txt('stageDescription',s.stage==='lobby'?'Invite students to join.':s.stage==='active'?`${phaseNames[s.phase]} — waiting for simultaneous decisions`:s.stage==='results'?`${phaseNames[s.phase]} — decisions revealed. Discuss before advancing.`:'Review and export results.');
  txt('students',s.playerCount);txt('submissions',`${s.submitted}/${s.playerCount}`);
- const allowNext=s.stage==='lobby'?s.playerCount>=4:s.stage==='results'&&s.round<12;
+ const allowNext=s.stage==='lobby'?s.playerCount>=2:s.stage==='results'&&s.round<12;
  $('next').disabled=!allowNext;$('next').textContent=s.stage==='lobby'?'Start Round 1':s.stage==='results'?`Start Round ${s.round+1}`:s.stage==='finished'?'Completed':'Waiting for submissions';show('force',s.stage==='active');
  show('botWarning',!!s.botWarning);txt('botWarning',s.botWarning);
  const body=$('leaderboard');body.replaceChildren();for(const p of [...s.players].sort((a,b)=>b.total-a.total)){let tr=document.createElement('tr');for(const t of [p.name+(p.bot?' (bot)':''),p.bot?'Scripted':p.online?'Online':'Offline',p.total,...p.phaseScores]){let td=document.createElement('td');td.textContent=t;tr.append(td)}if(p.bot)tr.style.opacity='.55';body.append(tr)}
