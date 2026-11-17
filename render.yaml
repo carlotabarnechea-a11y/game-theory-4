@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: competition-lab
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python server.py
+    healthCheckPath: /health
+    envVars:
+      - key: HOST_PIN
+        sync: false
+      - key: PYTHONUNBUFFERED
+        value: "1"
