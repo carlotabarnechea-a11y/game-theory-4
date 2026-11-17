@@ -78,8 +78,8 @@ def pair_key(a: str, b: str) -> str:
 
 def randomized_groups(tokens: list[str], previous: dict[str, int], round_idx: int) -> list[dict]:
     """Minimize repeated pairs while guaranteeing identical two-player payoffs."""
-    if len(tokens) < 4:
-        raise ValueError('At least four players must join.')
+    if len(tokens) < 2:
+        raise ValueError('At least two players must join.')
     if len(tokens) % 2:
         raise ValueError('The number of participants must be even. A bot is added automatically when needed.')
     sizes = [2] * (len(tokens) // 2)
@@ -209,7 +209,7 @@ async def broadcast(room: Room):
 
 
 def start_round(room: Room):
-    if room.stage == 'lobby' and len(room.players) < 4:
+    if room.stage == 'lobby' and len(room.players) < 2:
         raise ValueError('At least four players must join before starting.')
     if room.stage == 'active':
         raise ValueError('Finish the current round before advancing.')
